@@ -1,0 +1,601 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Add and configure the test framework": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787224373
+      },
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787238367
+      }
+    ],
+    "1.2 Implement `src/config.js` Build_Time_Config module": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787224641
+      },
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787937104
+      },
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792961799174
+      }
+    ],
+    "1.3 Write unit tests for `src/config.js`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787224862
+      },
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792961837414
+      },
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792962977444
+      }
+    ],
+    "2.1 Implement `post()` in `src/util/network.js`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787225234
+      },
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787929641
+      }
+    ],
+    "3.1 Implement PKCE parameter generation and custom error types": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787225465
+      },
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792961799392
+      }
+    ],
+    "3.2 Write property test for Code_Verifier generation": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787225717
+      },
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792962989013
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007474933
+      }
+    ],
+    "3.5 Write unit test for Web Crypto unavailability": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787225930
+      }
+    ],
+    "3.6 Implement PKCE session persistence and authorize-URL builder": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787226171
+      },
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792962989227
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007475718
+      }
+    ],
+    "3.9 Write property test for empty challenge/state aborting URL construction": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787226398
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007501800
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007513759
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007612473
+      }
+    ],
+    "3.10 Write unit test for sessionStorage persist failure": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787226597
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007502027
+      }
+    ],
+    "4. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787226813
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007502232
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007619722
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007654924
+      }
+    ],
+    "5.1 Implement token store/read/clear": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787227016
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007502452
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007675973
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007757592
+      }
+    ],
+    "5.7 Implement `refresh()`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787227230
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007502649
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007767565
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007871936
+      }
+    ],
+    "5.8 Write property test for absent-refresh-token routing": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787227455
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007502837
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007891435
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008006067
+      }
+    ],
+    "6.1 Implement `exchangeCodeForTokens`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787227672
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007503030
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008021614
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008128699
+      }
+    ],
+    "6.3 Implement `handleCallback` and `beginAuth`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787227899
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007503237
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008143276
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008271622
+      }
+    ],
+    "7. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787228110
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007503430
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008279248
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793029676153
+      }
+    ],
+    "8.1 Add the `/callback` route and keep history mode": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787228317
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007503616
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793029968923
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793033780958
+      }
+    ],
+    "8.2 Create `src/pages/Callback.vue`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787228518
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007503804
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793052665626
+      }
+    ],
+    "8.3 Update `src/pages/Home.vue` to use `beginAuth`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787228726
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007504004
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793029694341
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793029968403
+      }
+    ],
+    "9.1 Replace cookie token reads with Token_Manager and migrate the 401 refresh path": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787228943
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007504202
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793033796247
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035433401
+      }
+    ],
+    "10. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787229158
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007504395
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035439267
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035578619
+      }
+    ],
+    "11.1 Update `vue.config.js` with the build-time guard": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787229368
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007504617
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035954260
+      }
+    ],
+    "11.2 Add Netlify SPA fallback and build config": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787229571
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007504808
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035598541
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035954357
+      }
+    ],
+    "12.1 Delete the server directory and update dependencies/scripts": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787229781
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007505007
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035973397
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793037445988
+      }
+    ],
+    "13.1 Add `.env.example`": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787230033
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007505202
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793038311608
+      }
+    ],
+    "13.2 Rewrite `README.md` for the serverless Netlify setup": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787230326
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007505394
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793038311720
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793038414204
+      }
+    ],
+    "14.1 Run full verification suite": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787230557
+      },
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793007505608
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793038419412
+      },
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793052632086
+      }
+    ],
+    "2. Add the network `post()` helper": [
+      {
+        "executionId": "5cfc2a5a-e912-4511-983e-28ce8de542c3",
+        "chatSessionId": "sess_6f4c17ed-d075-4ec6-a2ab-2ab3f83bf687",
+        "timestamp": 1792787929833
+      }
+    ],
+    "1. Set up test tooling and build-time config foundation": [
+      {
+        "executionId": "ef56a397-f0d1-4599-a504-b06988b9c5dc",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1792962977776
+      }
+    ],
+    "5. Implement the Token_Manager (`src/auth/tokens.js`)": [
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008006309
+      }
+    ],
+    "6. Implement the authorization-code exchange and callback handling (`src/auth/pkce.js`)": [
+      {
+        "executionId": "2e07384b-0b53-49ea-b0ee-8dca3948c90f",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793008271862
+      }
+    ],
+    "9. Migrate the Sync_Engine to Token_Manager (`src/wavesync/sync.js`)": [
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793035433652
+      }
+    ],
+    "12. Remove server infrastructure and update package.json": [
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793037446297
+      }
+    ],
+    "14. Final verification": [
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793052632403
+      }
+    ],
+    "8. Wire routing and views": [
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793052665919
+      }
+    ],
+    "3. Implement the Auth_Module PKCE primitives (`src/auth/pkce.js`)": [
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793052675951
+      }
+    ],
+    "13. Documentation and environment example": [
+      {
+        "executionId": "1c79a4c6-a91c-4edf-b53c-98bff6dadd1e",
+        "chatSessionId": "sess_f0a08a64-2244-4f52-a59e-0ed2e4023185",
+        "timestamp": 1793052676154
+      }
+    ]
+  }
+}

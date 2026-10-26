@@ -1,0 +1,13 @@
+{
+  "name": "Security Check on Web Operations",
+  "version": "1.0.0",
+  "description": "Block outbound requests to suspicious exfiltration endpoints",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": ["web"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash $HOME/.kiro/scripts/security_check.sh"
+  }
+}

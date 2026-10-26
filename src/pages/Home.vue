@@ -1,7 +1,7 @@
 <template lang="pug">
 .home(ref="container" :class="{ loading }")
   .text
-    h1 
+    h1
       i w
       i a
       i v
@@ -10,29 +10,42 @@
       i y
       i n
       i c
-    h2 a spotify visualizer 
+    h2 a spotify visualizer
     button(@click="auth") Login
+    p.error(v-if="error") {{ error }}
 </template>
 
 <script>
 import WaveSync from '@/wavesync'
-import { auth } from '@/wavesync/sync'
-import { get } from '@/util/network'
+import { beginAuth } from '@/auth/pkce'
 
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      error: null
     }
   },
 
   methods: {
-    async auth () {
-      const { data } = await get(`${process.env.PROJECT_ROOT}/auth`)
+    auth () {
       this.loading = true
-      this.$refs.container.addEventListener('animationend', () => {
-        window.location.href = `${process.env.PROJECT_ROOT}/login?auth_id=${data.auth_id}`
-      })
+      this.error = null
+
+      this.$refs.container.addEventListener('animationend', async () => {
+        const result = await beginAuth({
+          redirect: (url) => {
+            window.location.assign(url)
+          }
+        })
+
+        // On success the browser navigates via the injected redirect; on
+        // failure surface the error inline without navigating (Req 1.6, 1.7, 2.4).
+        if (result && result.ok === false) {
+          this.loading = false
+          this.error = result.error
+        }
+      }, { once: true })
     }
   },
 
@@ -130,7 +143,7 @@ img {
 }
 
 button {
-  @include button(white); 
+  @include button(white);
   @include position(absolute, 100px null null null);
   transform: translateX(-50%) translateY(150px);
   margin: 0 auto;
@@ -138,5 +151,13 @@ button {
 
   &:hover { color: black; }
   &:active { transform: translateX(-50%) translateY(150px) scale(.5); }
+}
+
+.error {
+  @include position(absolute, 180px null null null);
+  transform: translateX(-50%);
+  z-index: 2;
+  color: white;
+  font-family: 'Covered By Your Grace';
 }
 </style>

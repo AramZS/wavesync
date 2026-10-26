@@ -1,0 +1,12 @@
+{
+  "name": "Security Check on Prompt Submit",
+  "version": "1.0.0",
+  "description": "Scan prompts for accidentally pasted secrets before they enter agent context",
+  "when": {
+    "type": "promptSubmit"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash $HOME/.kiro/scripts/security_check.sh"
+  }
+}

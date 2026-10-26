@@ -1,0 +1,13 @@
+{
+  "name": "Security Check on File Writes",
+  "version": "1.0.0",
+  "description": "Block AWS/secrets and warn on input validation before file writes",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": ["write"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash $HOME/.kiro/scripts/security_check.sh"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Security Check on Shell Execution",
+  "version": "1.0.0",
+  "description": "Block unsafe shell execution patterns",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": ["shell"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash $HOME/.kiro/scripts/security_check.sh"
+  }
+}

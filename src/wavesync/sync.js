@@ -1,6 +1,6 @@
 import Observe from '../util/observe'
-import * as cookies from '../util/cookie'
 import { get } from '../util/network'
+import { getAccessToken, refresh } from '../auth/tokens'
 import interpolate from '../util/interpolate'
 import { scaleLog } from 'd3-scale'
 import { min } from 'd3-array'
@@ -8,29 +8,27 @@ import ease from '../util/easing'
 
 /**
  * @class Sync
- * 
+ *
  * Creates an interface for analyzing a playing Spotify track in real time.
- * Exposes event hooks for reacting to changes in intervals. 
+ * Exposes event hooks for reacting to changes in intervals.
  */
 export default class Sync {
   constructor ({
     volumeSmoothing = 100,
-    pingDelay = 2500
+    pingDelay = 2500,
+    navigateHome
   } = {}, fixed = false) {
-    const accessToken = cookies.get('SPOTIFY_ACCESS_TOKEN')
-    const refreshToken = cookies.get('SPOTIFY_REFRESH_TOKEN')
-    const refreshCode = cookies.get('SPOTIFY_REFRESH_CODE')
+    const accessToken = getAccessToken()
+
+    this.navigateHome = typeof navigateHome === 'function'
+      ? navigateHome
+      : (() => { if (typeof window !== 'undefined' && window.location) window.location.href = '/' })
 
     this.state = Observe({
       api: {
         currentlyPlaying: 'https://api.spotify.com/v1/me/player',
         trackAnalysis: 'https://api.spotify.com/v1/audio-analysis/',
         trackFeatures: 'https://api.spotify.com/v1/audio-features/',
-        tokens: {
-          accessToken,
-          refreshToken,
-          refreshCode
-        },
         headers: {
           'Authorization': 'Bearer ' + accessToken,
           'Accept': 'application/json'
@@ -78,7 +76,7 @@ export default class Sync {
   }
 
   /**
-   * @method initHooks - Initialize interval event hooks. 
+   * @method initHooks - Initialize interval event hooks.
    */
   initHooks () {
     this.hooks = {
@@ -97,28 +95,31 @@ export default class Sync {
   }
 
   /**
-   * @method ping - Ask Spotify for currently playing track, after a specified delay. 
+   * @method ping - Ask Spotify for currently playing track, after a specified delay.
    */
   ping () {
     setTimeout(() => this.getCurrentlyPlaying(), this.state.api.pingDelay)
   }
 
   /**
-   * @method getNewToken - Retrieve new access token from server. 
+   * @method getNewToken - Delegate to Token_Manager.refresh() to obtain a fresh
+   * access token. On success, rebuild the auth header and resume polling on the
+   * next interval. On failure (no refresh token, non-2xx, or timeout), navigate
+   * home and do not resume polling.
    */
   async getNewToken () {
-    if (!this.state.api.tokens.refreshToken) {
-      window.location.href = '/'
+    const result = await refresh()
+
+    if (result.ok === true) {
+      this.state.api.headers = {
+        'Authorization': 'Bearer ' + getAccessToken(),
+        'Accept': 'application/json'
+      }
+      this.ping()
+      return
     }
-    
-    const { data } = await get(`${process.env.PROJECT_ROOT}/refresh?token=${this.state.api.tokens.refreshToken}`)
-    cookies.set('SPOTIFY_ACCESS_TOKEN', data.access_token)
-    this.state.api.tokens.accessToken = data.access_token
-    this.state.api.headers = {
-      'Authorization': 'Bearer ' + this.state.api.tokens.accessToken,
-      'Accept': 'application/json'
-    }
-    this.ping()
+
+    this.navigateHome()
   }
 
   /**
@@ -148,7 +149,7 @@ export default class Sync {
 
   /**
    * @method processResponse - Process `currently playing` API response according to state.
-   * @param {object} data - Response from Spotify API. 
+   * @param {object} data - Response from Spotify API.
    */
   processResponse (data) {
     const songsInSync = (JSON.stringify(data.item) === JSON.stringify(this.state.currentlyPlaying))
@@ -159,10 +160,10 @@ export default class Sync {
 
     this.ping()
   }
-  
+
   /**
    * @method getTrackInfo - Fetch track analysis and track features of currently playing track.
-   * @param {object} data - Response from Spotify API. 
+   * @param {object} data - Response from Spotify API.
    */
   async getTrackInfo (data) {
     const tick = window.performance.now()
@@ -202,7 +203,7 @@ export default class Sync {
     if (this.state.active === false) {
       this.state.active = true
     }
-     
+
     if (this.state.noPlayback === true) {
       this.state.noPlayback = false
     }
@@ -222,7 +223,7 @@ export default class Sync {
         if (analysis[i].start < progress && progress < analysis[i + 1].start) return i
       }
     }
-  
+
     this.state.intervalTypes.forEach(type => {
       const index = determineInterval(type)
       if (!this.state.activeIntervals[type].start || index !== this.state.activeIntervals[type].index) {
@@ -237,7 +238,7 @@ export default class Sync {
   }
 
   /**
-   * @method getVolume - Extract volume data from active segment. 
+   * @method getVolume - Extract volume data from active segment.
    */
   getVolume () {
     const {
@@ -251,10 +252,10 @@ export default class Sync {
     } = this.state.activeIntervals.segments
 
     if (!this.state.trackAnalysis.segments[index + 1]) return 0
-    
+
     const next = this.state.trackAnalysis.segments[index + 1].loudness_start
     const current = start + elapsed
-  
+
     if (elapsed < loudness_max_time) {
       const progress = Math.min(1, elapsed / loudness_max_time)
       return interpolate(loudness_start, loudness_max)(progress)
@@ -269,8 +270,8 @@ export default class Sync {
 
   /**
    * @method watch - Convenience method for watching data store.
-   * @param {string} key 
-   * @param {function} method 
+   * @param {string} key
+   * @param {function} method
    */
   watch (key, method) {
     this.state.watch(key, method)
@@ -278,15 +279,15 @@ export default class Sync {
 
   /**
    * @method on - Convenience method for applying interval hooks.
-   * @param {string} - Interval type. 
-   * @param {function} - Event handler. 
+   * @param {string} - Interval type.
+   * @param {function} - Event handler.
    */
   on (interval, method) {
     this.hooks[interval] = method
   }
 
   /**
-   * @getter isActive - Returns if class is actively syncing with a playing track. 
+   * @getter isActive - Returns if class is actively syncing with a playing track.
    */
   get isActive () {
     return this.state.active === true
@@ -301,8 +302,8 @@ export default class Sync {
   }
 
   /**
-   * @method tick - A single update tick from the Sync loop. 
-   * @param {DOMHighResTimeStamp} now 
+   * @method tick - A single update tick from the Sync loop.
+   * @param {DOMHighResTimeStamp} now
    */
   tick (now) {
     requestAnimationFrame(this.tick.bind(this))
@@ -358,19 +359,19 @@ export default class Sync {
     }
 
     const types = ['tatums', 'segments', 'beats', 'bars', 'sections']
-  
+
     types.forEach(type => {
       analysis[type] = []
-  
+
       for (var i = 0; i < 10000; i++) {
         const tatumStart = analysis.tatums[i - 1]
           ? analysis.tatums[i - 1].start + analysis.tatums[i - 1].duration
           : 0
-  
+
         const tatumDuration = (i % 2 === 0)
           ? duration.tatums[0]
           : duration.tatums[1]
-  
+
         analysis[type].push({
           start: (type === 'tatums')
             ? tatumStart

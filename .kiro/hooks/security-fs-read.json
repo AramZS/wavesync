@@ -1,0 +1,13 @@
+{
+  "name": "Security Check on File Reads",
+  "version": "1.0.0",
+  "description": "Block reading sensitive files (.env, .pem, .key, credentials, secrets)",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": ["read"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash $HOME/.kiro/scripts/security_check.sh"
+  }
+}
