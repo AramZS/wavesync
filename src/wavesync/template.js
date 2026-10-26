@@ -6,29 +6,29 @@ export default class Template extends Visualizer {
   }
 
   hooks () {
-    this.sync.on('tatum', tatum => {
+    this.sync.on('tatum', () => {
 
     })
 
-    this.sync.on('segment', segment => {
+    this.sync.on('segment', () => {
 
     })
 
-    this.sync.on('beat', beat => {
+    this.sync.on('beat', () => {
 
     })
 
-    this.sync.on('bar', bar => {
+    this.sync.on('bar', () => {
 
     })
 
-    this.sync.on('section', section => {
+    this.sync.on('section', () => {
 
     })
   }
 
-  paint ({ ctx, height, width, now }) {
-    const volume = this.sync.volume
-    const beat = this.sync.getInterval('beat')
+  paint () {
+    // Template stub: no rendering yet. Subclasses override paint() with the
+    // ({ ctx, height, width, now }) signature to draw each frame.
   }
 }

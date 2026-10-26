@@ -29,8 +29,11 @@ if (isBuild) {
 module.exports = {
   css: {
     loaderOptions: {
-      sass: {
-        data: `@import "@/sass/imports.scss";`
+      // sass-loader 13 renamed `data` to `additionalData`. This prepends the
+      // shared sass imports (variables/mixins) to every scss block, including
+      // the `lang="scss"` blocks inside .vue single-file components.
+      scss: {
+        additionalData: `@import "@/sass/imports.scss";`
       }
     }
   }

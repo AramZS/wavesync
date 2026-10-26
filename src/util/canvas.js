@@ -33,7 +33,7 @@ export function polygon (sides, radius, cx = 0, cy = 0, rotation = 0) {
 	return vertices
 }
 
-export function star (points, innerRadius, outerRadius, cx = 0, cy = 0, rotation = 0, round = false) {
+export function star (points, innerRadius, outerRadius, cx = 0, cy = 0, rotation = 0) {
   const outer = polygon(points, outerRadius, cx, cy, rotation)
   const inner = polygon(points, innerRadius, cx, cy, (360 / points / 2) + rotation)
   const vertices = []

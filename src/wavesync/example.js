@@ -10,7 +10,7 @@ export default class Example extends Visualizer {
   }
 
   hooks () {
-    this.sync.on('bar', i => {
+    this.sync.on('bar', () => {
       this.lastColor = this.nextColor || getRandomElement(this.theme)
       this.nextColor = getRandomElement(this.theme.filter(c => c !== this.nextColor))
     })
