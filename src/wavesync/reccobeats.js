@@ -50,26 +50,42 @@ async function getJson (url, timeoutMs = 10000) {
 }
 
 /**
- * Build the search query string from a track title and primary artist.
+ * Build the search query string for a track. ReccoBeats' search works best
+ * with the track title alone, so the artist is intentionally excluded.
  * @param {string} name
- * @param {string} artist
  * @returns {string}
  */
-export function buildSearchText (name, artist) {
-  return [name, artist].filter(Boolean).join(' ').trim()
+export function buildSearchText (name) {
+  return (name || '').trim()
+}
+
+/**
+ * Return the primary artist name of a ReccoBeats search result, or ''.
+ * @param {object} track
+ * @returns {string}
+ */
+function primaryArtistName (track) {
+  if (track && Array.isArray(track.artists) && track.artists[0] && track.artists[0].name) {
+    return track.artists[0].name
+  }
+  return ''
 }
 
 /**
  * Resolve a ReccoBeats track id for a Spotify track.
  *
- * Searches by "<title> <artist>" and prefers the result whose ISRC matches the
- * Spotify track's ISRC; otherwise falls back to the first result.
+ * The search query is the track title only (ReccoBeats' search is tuned for the
+ * title on its own). Among the returned results, selection prefers, in order:
+ *   1. the result whose ISRC matches the Spotify track's ISRC (exact recording)
+ *   2. the result whose primary artist matches the playing track's artist
+ *      (case-insensitive) — disambiguates covers/same-title songs
+ *   3. the first result
  *
- * @param {{ name: string, artist: string, isrc?: string }} params
+ * @param {{ name: string, artist?: string, isrc?: string }} params
  * @returns {Promise<string|null>} the ReccoBeats id, or null when not found
  */
 export async function resolveTrackId ({ name, artist, isrc }) {
-  const searchText = buildSearchText(name, artist)
+  const searchText = buildSearchText(name)
   if (!searchText) return null
 
   const url = RECCOBEATS_BASE + '/track/search?searchText=' + encodeURIComponent(searchText)
@@ -77,11 +93,20 @@ export async function resolveTrackId ({ name, artist, isrc }) {
   const content = (body && Array.isArray(body.content)) ? body.content : []
   if (content.length === 0) return null
 
+  // 1. ISRC match (strongest — identifies the exact recording).
   if (isrc) {
     const match = content.find((t) => t && t.isrc && t.isrc.toUpperCase() === isrc.toUpperCase())
     if (match && match.id) return match.id
   }
 
+  // 2. Artist match (title already matched via search; pick the right artist).
+  if (artist) {
+    const wanted = artist.toLowerCase()
+    const match = content.find((t) => primaryArtistName(t).toLowerCase() === wanted)
+    if (match && match.id) return match.id
+  }
+
+  // 3. Fall back to the first result.
   return content[0] && content[0].id ? content[0].id : null
 }
 
@@ -183,7 +208,7 @@ export function buildAnalysisFromFeatures (features, durationMs) {
  * data the Sync_Engine needs: a synthesized `analysis` timeline and the raw
  * `features` object.
  *
- * @param {{ name: string, artist: string, isrc?: string, durationMs: number }} track
+ * @param {{ name: string, artist?: string, isrc?: string, durationMs: number }} track
  * @returns {Promise<{ analysis: object, features: object }|null>}
  *   null when the track could not be resolved to ReccoBeats features.
  */

@@ -174,8 +174,10 @@ export default class Sync {
     // + ms-conversion below is unchanged. If the track cannot be resolved we
     // fall back to the static demo intervals (already in ms) so the visualizer
     // keeps animating instead of stalling.
-    const artist = (data.item.artists && data.item.artists[0] && data.item.artists[0].name) || ''
     const isrc = (data.item.external_ids && data.item.external_ids.isrc) || undefined
+    // Artist is NOT part of the ReccoBeats search query (title-only), but is
+    // used to disambiguate among multiple title matches.
+    const artist = (data.item.artists && data.item.artists[0] && data.item.artists[0].name) || undefined
 
     let analysis
     let features

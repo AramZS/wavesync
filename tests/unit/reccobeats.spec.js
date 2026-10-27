@@ -27,11 +27,14 @@ afterEach(() => {
 })
 
 describe('buildSearchText', () => {
-  it('combines title and artist', () => {
-    expect(buildSearchText('Bohemian Rhapsody', 'Queen')).toBe('Bohemian Rhapsody Queen')
+  it('uses the track title only (no artist)', () => {
+    expect(buildSearchText('Bohemian Rhapsody')).toBe('Bohemian Rhapsody')
   })
-  it('omits an empty artist', () => {
-    expect(buildSearchText('Title', '')).toBe('Title')
+  it('trims surrounding whitespace', () => {
+    expect(buildSearchText('  Title  ')).toBe('Title')
+  })
+  it('handles a missing title', () => {
+    expect(buildSearchText(undefined)).toBe('')
   })
 })
 
@@ -48,31 +51,73 @@ describe('resolveTrackId', () => {
       }
       return null
     })
-    const id = await resolveTrackId({ name: 'Song', artist: 'Artist', isrc: 'zzz999' })
+    const id = await resolveTrackId({ name: 'Song', isrc: 'zzz999' })
     expect(id).toBe('isrc-match')
   })
 
-  it('falls back to content[0] when no ISRC match', async () => {
+  it('prefers an ISRC match over an artist match', async () => {
+    mockFetchJson((url) => url.includes('/track/search')
+      ? {
+          content: [
+            { id: 'artist-match', isrc: 'AAA111', artists: [{ name: 'Queen' }] },
+            { id: 'isrc-match', isrc: 'ZZZ999', artists: [{ name: 'Someone Else' }] }
+          ]
+        }
+      : null)
+    const id = await resolveTrackId({ name: 'Song', artist: 'Queen', isrc: 'zzz999' })
+    expect(id).toBe('isrc-match')
+  })
+
+  it('uses the artist match when there is no ISRC match', async () => {
+    mockFetchJson((url) => url.includes('/track/search')
+      ? {
+          content: [
+            { id: 'wrong-artist', isrc: 'AAA111', artists: [{ name: 'Cover Band' }] },
+            { id: 'right-artist', isrc: 'BBB222', artists: [{ name: 'Queen' }] }
+          ]
+        }
+      : null)
+    // Case-insensitive artist match; no ISRC provided.
+    const id = await resolveTrackId({ name: 'Song', artist: 'queen' })
+    expect(id).toBe('right-artist')
+  })
+
+  it('falls back to content[0] when neither ISRC nor artist match', async () => {
+    mockFetchJson((url) => url.includes('/track/search')
+      ? {
+          content: [
+            { id: 'first', isrc: 'AAA111', artists: [{ name: 'Cover Band' }] },
+            { id: 'second', isrc: 'BBB222', artists: [{ name: 'Tribute Act' }] }
+          ]
+        }
+      : null)
+    const id = await resolveTrackId({ name: 'Song', artist: 'Queen', isrc: 'NOPE' })
+    expect(id).toBe('first')
+  })
+
+  it('falls back to content[0] when no artist is supplied', async () => {
     mockFetchJson((url) => url.includes('/track/search')
       ? { content: [{ id: 'first', isrc: 'AAA111' }, { id: 'second', isrc: 'BBB222' }] }
       : null)
-    const id = await resolveTrackId({ name: 'Song', artist: 'Artist', isrc: 'NOPE' })
+    const id = await resolveTrackId({ name: 'Song' })
     expect(id).toBe('first')
   })
 
   it('returns null on empty content', async () => {
     mockFetchJson((url) => url.includes('/track/search') ? { content: [] } : null)
-    const id = await resolveTrackId({ name: 'Song', artist: 'Artist' })
+    const id = await resolveTrackId({ name: 'Song' })
     expect(id).toBeNull()
   })
 
-  it('encodes the searchText query', async () => {
+  it('searches by title only and encodes the query', async () => {
     mockFetchJson(() => ({ content: [{ id: 'x' }] }))
-    await resolveTrackId({ name: 'A & B', artist: 'C/D' })
+    await resolveTrackId({ name: 'A & B', isrc: 'X' })
     const calledUrl = global.fetch.mock.calls[0][0]
     expect(calledUrl).toContain('searchText=')
+    // Only the title is encoded into the query; the artist is never included.
+    expect(calledUrl).toContain('searchText=' + encodeURIComponent('A & B'))
+    // The raw (unencoded) title must not leak into the URL, and no artist is appended.
     expect(calledUrl).not.toContain('A & B')
-    expect(calledUrl).toContain(encodeURIComponent('A & B C/D'))
   })
 })
 
@@ -150,7 +195,7 @@ describe('getTrackData', () => {
       }
       return Promise.resolve({ ok: false, status: 404, json: async () => ({}) })
     })
-    const result = await getTrackData({ name: 'S', artist: 'A', isrc: 'X', durationMs: 30000 })
+    const result = await getTrackData({ name: 'S', isrc: 'X', durationMs: 30000 })
     expect(result).not.toBeNull()
     expect(result.features.tempo).toBe(128)
     expect(result.analysis.beats.length).toBeGreaterThan(0)
@@ -158,7 +203,7 @@ describe('getTrackData', () => {
 
   it('returns null when the track is not found', async () => {
     global.fetch = jest.fn(() => Promise.resolve({ ok: true, status: 200, json: async () => ({ content: [] }) }))
-    const result = await getTrackData({ name: 'S', artist: 'A', durationMs: 30000 })
+    const result = await getTrackData({ name: 'S', durationMs: 30000 })
     expect(result).toBeNull()
   })
 })
