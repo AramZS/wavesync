@@ -1,11 +1,15 @@
+@use '../config/colors' as *;
+@use '../config/typography' as *;
+@use 'size' as *;
+
 @mixin button($color: $black) {
   @include size(auto, 40px);
   @include share;
-	line-height: 40px;
+  line-height: 40px;
   display: inline-block;
   background: transparent;
   color: $color;
-	padding: 0 20px;
+  padding: 0 20px;
   border-radius: 50px;
   text-align: center;
   border: 2px solid $color;
@@ -14,9 +18,9 @@
 
   &:active, &:focus { outline: 0 }
 
-  &:hover { 
+  &:hover {
     background: $color;
     color: $white;
     cursor: pointer;
-  } 
+  }
 }

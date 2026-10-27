@@ -1,9 +1,13 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../config/viewport' as *;
+
 @mixin max-width($bp) {
-  $breakpoint: map-get($breakpoints, $bp);
-  
-  @if (type-of($breakpoint) != 'number') {
+  $breakpoint: map.get($breakpoints, $bp);
+
+  @if (meta.type-of($breakpoint) != 'number') {
     $breakpoint: $bp;
   }
-  
+
   @media all and (max-width: #{$breakpoint}px) { @content; }
 }

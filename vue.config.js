@@ -30,10 +30,13 @@ module.exports = {
   css: {
     loaderOptions: {
       // sass-loader 13 renamed `data` to `additionalData`. This prepends the
-      // shared sass imports (variables/mixins) to every scss block, including
-      // the `lang="scss"` blocks inside .vue single-file components.
+      // shared sass module (variables/mixins) to every scss block, including
+      // the `lang="scss"` blocks inside .vue single-file components. Using
+      // `@use ... as *` (the modern Sass module system) exposes the forwarded
+      // members unqualified, so components keep calling mixins like
+      // `@include position(...)` without a namespace prefix.
       scss: {
-        additionalData: `@import "@/sass/imports.scss";`
+        additionalData: `@use "@/sass/imports.scss" as *;`
       }
     }
   }

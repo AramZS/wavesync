@@ -1,13 +1,16 @@
-@import 'config/variables';
-@import 'config/colors';
-@import 'config/typography';
-@import 'config/viewport';
+// Aggregator entry point. Forwarded so a single `@use '@/sass/imports' as *`
+// exposes every config variable and mixin under one namespace. This is what
+// vue.config.js injects into each component's scss block via additionalData.
+@forward 'config/variables';
+@forward 'config/colors';
+@forward 'config/typography';
+@forward 'config/viewport';
 
-@import 'mixins/button';
-@import 'mixins/cascade';
-@import 'mixins/flex';
-@import 'mixins/max-width';
-@import 'mixins/min-width';
-@import 'mixins/position';
-@import 'mixins/scale';
-@import 'mixins/size';
+@forward 'mixins/button';
+@forward 'mixins/cascade';
+@forward 'mixins/flex';
+@forward 'mixins/max-width';
+@forward 'mixins/min-width';
+@forward 'mixins/position';
+@forward 'mixins/scale';
+@forward 'mixins/size';

@@ -1,6 +1,6 @@
-@import 'global/reset';
-@import 'global/fonts';
-@import 'imports';
+@use 'global/reset';
+@use 'global/fonts';
+@use 'imports' as *;
 
 html, body {
   @include size(100%);

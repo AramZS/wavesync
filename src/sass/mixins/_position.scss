@@ -1,7 +1,9 @@
+@use 'sass:list';
+
 @mixin position ($position, $list) {
-  position: $position;  
-  top: nth($list, 1);
-  right: nth($list, 2);
-  bottom: nth($list, 3);
-  left: nth($list, 4);
+  position: $position;
+  top: list.nth($list, 1);
+  right: list.nth($list, 2);
+  bottom: list.nth($list, 3);
+  left: list.nth($list, 4);
 }
