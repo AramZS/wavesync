@@ -74,8 +74,10 @@ function primaryArtistName (track) {
 /**
  * Resolve a ReccoBeats track id for a Spotify track.
  *
- * The search query is the track title only (ReccoBeats' search is tuned for the
- * title on its own). Among the returned results, selection prefers, in order:
+ * The search sends the track title as `searchText` and, when available, the
+ * primary artist as a separate `artist` query parameter
+ * (`?searchText=<title>&artist=<artist>`). Among the returned results,
+ * selection prefers, in order:
  *   1. the result whose ISRC matches the Spotify track's ISRC (exact recording)
  *   2. the result whose primary artist matches the playing track's artist
  *      (case-insensitive) — disambiguates covers/same-title songs
@@ -88,7 +90,11 @@ export async function resolveTrackId ({ name, artist, isrc }) {
   const searchText = buildSearchText(name)
   if (!searchText) return null
 
-  const url = RECCOBEATS_BASE + '/track/search?searchText=' + encodeURIComponent(searchText)
+  const params = new URLSearchParams({ searchText })
+  if (artist) {
+    params.set('artist', artist)
+  }
+  const url = RECCOBEATS_BASE + '/track/search?' + params.toString()
   const body = await getJson(url)
   const content = (body && Array.isArray(body.content)) ? body.content : []
   if (content.length === 0) return null

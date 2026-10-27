@@ -109,15 +109,28 @@ describe('resolveTrackId', () => {
     expect(id).toBeNull()
   })
 
-  it('searches by title only and encodes the query', async () => {
+  it('encodes the title as searchText and omits artist when not supplied', async () => {
     mockFetchJson(() => ({ content: [{ id: 'x' }] }))
     await resolveTrackId({ name: 'A & B', isrc: 'X' })
     const calledUrl = global.fetch.mock.calls[0][0]
-    expect(calledUrl).toContain('searchText=')
-    // Only the title is encoded into the query; the artist is never included.
-    expect(calledUrl).toContain('searchText=' + encodeURIComponent('A & B'))
-    // The raw (unencoded) title must not leak into the URL, and no artist is appended.
+    const query = new URLSearchParams(calledUrl.split('?')[1])
+    expect(query.get('searchText')).toBe('A & B')
+    expect(query.has('artist')).toBe(false)
+    // The raw (unencoded) title must not leak into the URL.
     expect(calledUrl).not.toContain('A & B')
+  })
+
+  it('sends the artist as a separate &artist= query parameter', async () => {
+    mockFetchJson(() => ({ content: [{ id: 'x' }] }))
+    await resolveTrackId({ name: 'Under Pressure', artist: 'Queen & David Bowie' })
+    const calledUrl = global.fetch.mock.calls[0][0]
+    const query = new URLSearchParams(calledUrl.split('?')[1])
+    expect(query.get('searchText')).toBe('Under Pressure')
+    // artist is its own encoded param, NOT concatenated into searchText.
+    expect(query.get('artist')).toBe('Queen & David Bowie')
+    expect(query.get('searchText')).not.toContain('Queen')
+    // Raw unencoded values must not leak into the URL.
+    expect(calledUrl).not.toContain('Queen & David Bowie')
   })
 })
 
