@@ -12,6 +12,12 @@
 if (!process.env.VUE_APP_SPOTIFY_CLIENT_ID) {
   process.env.VUE_APP_SPOTIFY_CLIENT_ID = 'test-client-id'
 }
+if (process.env.VUE_APP_REDIRECT_URI === "https://wavesync.aramzs.xyz/callback" && process.env.URL){
+	process.env.VUE_APP_REDIRECT_URI = process.env.URL+"/callback"
+}
+if (process.env.VUE_APP_REDIRECT_URI === "https://wavesync.aramzs.xyz/callback" && process.env.DEPLOY_URL){
+	process.env.VUE_APP_REDIRECT_URI = process.env.DEPLOY_URL+"/callback"
+}
 if (!process.env.VUE_APP_REDIRECT_URI) {
   process.env.VUE_APP_REDIRECT_URI = 'http://localhost:8080/callback'
 }
