@@ -1,6 +1,7 @@
 import Observe from '../util/observe'
 import { get } from '../util/network'
 import { getAccessToken, refresh } from '../auth/tokens'
+import { getTrackData } from './reccobeats'
 import interpolate from '../util/interpolate'
 import { scaleLog } from 'd3-scale'
 import { min } from 'd3-array'
@@ -27,8 +28,6 @@ export default class Sync {
     this.state = Observe({
       api: {
         currentlyPlaying: 'https://api.spotify.com/v1/me/player',
-        trackAnalysis: 'https://api.spotify.com/v1/audio-analysis/',
-        trackFeatures: 'https://api.spotify.com/v1/audio-features/',
         headers: {
           'Authorization': 'Bearer ' + accessToken,
           'Accept': 'application/json'
@@ -167,24 +166,62 @@ export default class Sync {
    */
   async getTrackInfo (data) {
     const tick = window.performance.now()
-    const [ analysis, features ] = await Promise.all([
-      get(this.state.api.trackAnalysis + data.item.id, { headers: this.state.api.headers }).then(res => res.data),
-      get(this.state.api.trackFeatures + data.item.id, { headers: this.state.api.headers }).then(res => res.data),
-    ])
 
-    this.state.intervalTypes.forEach((t) => {
-      const type = analysis[t]
-      type[0].duration = type[0].start + type[0].duration
-      type[0].start = 0
-      type[type.length - 1].duration = (data.item.duration_ms / 1000) - type[type.length - 1].start
-      type.forEach((interval) => {
-        if (interval.loudness_max_time) {
-          interval.loudness_max_time = interval.loudness_max_time * 1000
-        }
-        interval.start = interval.start * 1000
-        interval.duration = interval.duration * 1000
+    // Spotify's audio-analysis/audio-features endpoints were deprecated for
+    // non-grandfathered apps (2024-11-27), so features come from ReccoBeats and
+    // the interval timeline is synthesized from tempo + duration. The returned
+    // analysis uses the same second-based shape as Spotify's, so the normalize
+    // + ms-conversion below is unchanged. If the track cannot be resolved we
+    // fall back to the static demo intervals (already in ms) so the visualizer
+    // keeps animating instead of stalling.
+    const artist = (data.item.artists && data.item.artists[0] && data.item.artists[0].name) || ''
+    const isrc = (data.item.external_ids && data.item.external_ids.isrc) || undefined
+
+    let analysis
+    let features
+    let usingFallback = false
+
+    try {
+      const trackData = await getTrackData({
+        name: data.item.name,
+        artist,
+        isrc,
+        durationMs: data.item.duration_ms
       })
-    })
+      if (trackData) {
+        analysis = trackData.analysis
+        features = trackData.features
+      }
+    } catch (err) {
+      // Network error / 429 / 404 — fall through to the static fallback.
+      analysis = undefined
+    }
+
+    if (!analysis) {
+      // Tempo-less fallback: keep the visualizer moving even without features.
+      usingFallback = true
+      analysis = this.buildStaticIntervals()
+      features = features || { energy: .2 }
+    }
+
+    if (!usingFallback) {
+      // Normalize + convert the (seconds-based) ReccoBeats analysis to ms, the
+      // units the tick loop/getVolume expect. buildStaticIntervals() already
+      // emits ms, so it bypasses this conversion.
+      this.state.intervalTypes.forEach((t) => {
+        const type = analysis[t]
+        type[0].duration = type[0].start + type[0].duration
+        type[0].start = 0
+        type[type.length - 1].duration = (data.item.duration_ms / 1000) - type[type.length - 1].start
+        type.forEach((interval) => {
+          if (interval.loudness_max_time) {
+            interval.loudness_max_time = interval.loudness_max_time * 1000
+          }
+          interval.start = interval.start * 1000
+          interval.duration = interval.duration * 1000
+        })
+      })
+    }
 
     const tock = window.performance.now() - tick
 
